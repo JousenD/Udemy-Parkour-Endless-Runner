@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
