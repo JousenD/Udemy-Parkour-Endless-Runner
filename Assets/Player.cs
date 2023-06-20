@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     [Header("Move Info")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private float doubleJumpForce; 
+
+    private bool canDoubleJump;
 
     private bool playerUnlocked;
 
@@ -42,6 +45,7 @@ public class Player : MonoBehaviour
 
     private void AnimatorControllers()
     {
+        anim.SetBool("canDoubleJump", canDoubleJump);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("yVelocity", rb.velocity.y);
         anim.SetFloat("xVelocity", rb.velocity.x);
@@ -57,8 +61,22 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
             playerUnlocked = true;
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump"))
+            JumpButton();
+    }
+
+    private void JumpButton()
+    {
+        if (isGrounded)
+        {
+            canDoubleJump = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+        else if (canDoubleJump)
+        {
+            canDoubleJump = false;
+            rb.velocity = new Vector2(rb.velocity.x, doubleJumpForce);
+        }
     }
 
     private void OnDrawGizmos() {
