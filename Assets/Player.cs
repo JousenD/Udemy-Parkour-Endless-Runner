@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,13 @@ public class Player : MonoBehaviour
     private bool canDoubleJump;
 
     private bool playerUnlocked;
+    [Header("Slide Info")]
+    [SerializeField] private float slideSpeed;
+    [SerializeField] private float slideTime;
+    [SerializeField] private float slideCooldown;
+    private float slideCooldownCounter;
+    private float slideTimeCounter;
+    private bool isSliding;
 
     [Header("Collision Info")]
     [SerializeField] private float groundCheckDistance;
@@ -39,6 +47,9 @@ public class Player : MonoBehaviour
         CheckCollision();
         AnimatorControllers();
 
+        slideTimeCounter-=Time.deltaTime;
+        slideCooldownCounter-=Time.deltaTime;
+
         if (playerUnlocked && !wallDetected)
             Movement();
 
@@ -47,20 +58,32 @@ public class Player : MonoBehaviour
             canDoubleJump = true;
         }
 
+        CheckForSlide();
         CheckInput();
+    }
+
+    private void CheckForSlide()
+    {
+        if(slideTimeCounter < 0)
+            isSliding = false;
     }
 
     private void Movement()
     {
-        rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+        if(isSliding)
+            rb.velocity = new Vector2(slideSpeed, rb.velocity.y);
+        else
+            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
     }
 
     private void AnimatorControllers()
     {
-        anim.SetBool("canDoubleJump", canDoubleJump);
-        anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("yVelocity", rb.velocity.y);
         anim.SetFloat("xVelocity", rb.velocity.x);
+        
+        anim.SetBool("canDoubleJump", canDoubleJump);
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetBool("isSliding", isSliding);
     }
 
     private void CheckCollision()
@@ -76,6 +99,19 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
             JumpButton();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            SlideButton();
+    }
+
+    private void SlideButton()
+    {
+        if (rb.velocity.x!=0 && slideCooldownCounter <0)
+        {
+            isSliding = true;
+            slideTimeCounter = slideTime;
+            slideCooldownCounter = slideCooldown;
+        }
     }
 
     private void JumpButton()
