@@ -19419,6 +19419,7 @@ MonoBehaviour:
   slideTime: 0.4
   slideCooldown: 0.5
   groundCheckDistance: 1.7
+  ceillingCheckDistance: 1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
