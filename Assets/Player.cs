@@ -34,6 +34,18 @@ public class Player : MonoBehaviour
     private bool wallDetected;
     private bool ceillingDetected;
 
+    [HideInInspector] public bool ledgeDetected;
+
+    [Header("Ledge Info")]
+    [SerializeField] private Vector2 offset1;
+    [SerializeField] private Vector2 offset2;
+
+    private Vector2 climbBegunPosition;
+    private Vector2 climbOverPosition;
+
+    private bool canGrabLedge = true;
+    private bool canClimb;
+
 
 
     // Start is called before the first frame update
@@ -60,9 +72,43 @@ public class Player : MonoBehaviour
             canDoubleJump = true;
         }
 
+        CheckForLedge();
         CheckForSlide();
         CheckInput();
     }
+
+    private void CheckForLedge()
+    {
+        if(ledgeDetected && canGrabLedge)
+        {
+            canGrabLedge = false;
+
+            Vector2 ledgePosition = GetComponentInChildren<LedgeDetection>().transform.position;
+
+            climbBegunPosition = ledgePosition + offset1;
+            climbOverPosition = ledgePosition + offset2;
+
+            canClimb = true;
+        }
+
+        if(canClimb)
+            transform.position = climbBegunPosition;
+    }
+
+    private void LedgeClimbStart()
+    {
+        Debug.Log("triggered");
+        canClimb = false;
+    }
+    private void LedgeClimbOver()
+    {
+        canClimb = false;
+        transform.position = climbOverPosition;
+        Invoke("AllowLedgeGrab", 0.1f);
+        
+    }
+
+    private void AllowLedgeGrab() => canGrabLedge = true;
 
     private void CheckForSlide()
     {
@@ -131,12 +177,15 @@ public class Player : MonoBehaviour
         anim.SetBool("canDoubleJump", canDoubleJump);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isSliding", isSliding);
+        anim.SetBool("canClimb", canClimb);
     }
     private void CheckCollision()
     {
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
         ceillingDetected = Physics2D.Raycast(transform.position, Vector2.up, ceillingCheckDistance, whatIsGround);
         wallDetected = Physics2D.BoxCast(wallCheck.position, wallCheckSize,0,Vector2.zero,0,whatIsGround);
+
+        Debug.Log(ledgeDetected);
     }
     private void OnDrawGizmos() {
         Gizmos.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y - groundCheckDistance));
