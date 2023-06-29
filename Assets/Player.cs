@@ -8,6 +8,16 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     private Animator anim;
 
+    [Header("Speed Info")]
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private float speedMultiplier;
+    private float defaultSpeed;
+    [Space]
+    [SerializeField] private float milestoneIncreaser;
+    private float defaultMilestoneIncrease;
+    private float speedMilestone;
+
+
     [Header("Move Info")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -53,6 +63,10 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
+        speedMilestone = milestoneIncreaser;
+        defaultSpeed = moveSpeed;
+        defaultMilestoneIncrease = milestoneIncreaser;
     }
 
     // Update is called once per frame
@@ -72,11 +86,39 @@ public class Player : MonoBehaviour
             canDoubleJump = true;
         }
 
+        SpeedController();
+
         CheckForLedge();
         CheckForSlide();
         CheckInput();
     }
 
+    #region SpeedControll
+    private void SpeedReset()
+    {
+        moveSpeed = defaultSpeed;
+        milestoneIncreaser = defaultMilestoneIncrease;
+    }
+    
+    private void SpeedController()
+    {
+        if(moveSpeed == maxSpeed)
+            return;
+        
+        if(transform.position.x > speedMilestone)
+        {
+            speedMilestone = speedMilestone + milestoneIncreaser;
+
+            moveSpeed = moveSpeed*speedMultiplier;
+            milestoneIncreaser = milestoneIncreaser * speedMultiplier;
+
+            if(moveSpeed > maxSpeed)
+                moveSpeed = maxSpeed;
+        }
+    }
+    #endregion
+
+    #region LedgeRegion
     private void CheckForLedge()
     {
         if(ledgeDetected && canGrabLedge)
@@ -109,6 +151,7 @@ public class Player : MonoBehaviour
     }
 
     private void AllowLedgeGrab() => canGrabLedge = true;
+    #endregion
 
     private void CheckForSlide()
     {
@@ -119,7 +162,10 @@ public class Player : MonoBehaviour
     private void Movement()
     {
         if (wallDetected)
+        {
+            SpeedReset();
             return;
+        }
 
         if(isSliding)
             rb.velocity = new Vector2(slideSpeed, rb.velocity.y);
