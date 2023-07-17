@@ -19413,6 +19413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1839624274}
+  knockbackDir: {x: -12, y: 7}
   maxSpeed: 20
   speedMultiplier: 1.15
   milestoneIncreaser: 50

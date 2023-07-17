@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     private Animator anim;
 
+    [Header("Knockback info")]
+    [SerializeField] private Vector2 knockbackDir;
+    private bool isKnocked;
+
     [Header("Speed Info")]
     [SerializeField] private float maxSpeed;
     [SerializeField] private float speedMultiplier;
@@ -78,6 +82,12 @@ public class Player : MonoBehaviour
         slideTimeCounter-=Time.deltaTime;
         slideCooldownCounter-=Time.deltaTime;
 
+        if (Input.GetKeyDown(KeyCode.K))
+            Knockback();
+
+        if (isKnocked)
+            return;
+
         if (playerUnlocked)
             Movement();
 
@@ -92,6 +102,14 @@ public class Player : MonoBehaviour
         CheckForSlide();
         CheckInput();
     }
+
+    private void Knockback()
+    {
+        isKnocked = true;
+        rb.velocity = knockbackDir;
+    }
+
+    private void CancelKnockback() => isKnocked = false;
 
     #region SpeedControll
     private void SpeedReset()
@@ -226,6 +244,7 @@ public class Player : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isSliding", isSliding);
         anim.SetBool("canClimb", canClimb);
+        anim.SetBool("isKnocked", isKnocked);
 
         if (rb.velocity.y < -20)
             anim.SetBool("canRoll", true);
