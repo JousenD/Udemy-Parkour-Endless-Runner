@@ -7,10 +7,12 @@ public class Player : MonoBehaviour
 {
     public Rigidbody2D rb;
     private Animator anim;
+    private SpriteRenderer sr;
 
     [Header("Knockback info")]
     [SerializeField] private Vector2 knockbackDir;
     private bool isKnocked;
+    private bool canBeKnocked = true;
 
     [Header("Speed Info")]
     [SerializeField] private float maxSpeed;
@@ -67,6 +69,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
 
         speedMilestone = milestoneIncreaser;
         defaultSpeed = moveSpeed;
@@ -103,8 +106,48 @@ public class Player : MonoBehaviour
         CheckInput();
     }
 
+    private IEnumerator Invincivility()
+    {
+        Color originalColor = sr.color;
+        Color darkenColor = new Color(sr.color.r, sr.color.g, sr.color.b, .5f);
+
+        canBeKnocked = false;
+        sr.color = darkenColor;
+        yield return new WaitForSeconds(0.1f);
+        
+        sr.color = originalColor;
+        yield return new WaitForSeconds(0.1f);
+
+        sr.color = darkenColor;
+        yield return new WaitForSeconds(0.15f);
+        
+        sr.color = originalColor;
+        yield return new WaitForSeconds(0.15f);
+
+        sr.color = darkenColor;
+        yield return new WaitForSeconds(0.25f);
+        
+        sr.color = originalColor;
+        yield return new WaitForSeconds(0.25f);
+
+        sr.color = darkenColor;
+        yield return new WaitForSeconds(0.3f);
+
+        sr.color = originalColor;
+        yield return new WaitForSeconds(0.35f);
+
+        sr.color = darkenColor;
+        yield return new WaitForSeconds(0.4f);
+        
+        sr.color = originalColor;
+        canBeKnocked = true;
+    }
     private void Knockback()
     {
+        if(!canBeKnocked)
+            return;
+
+        StartCoroutine(Invincivility());
         isKnocked = true;
         rb.velocity = knockbackDir;
     }
