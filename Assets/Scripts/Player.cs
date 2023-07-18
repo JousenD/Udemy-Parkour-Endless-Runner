@@ -10,13 +10,15 @@ public class Player : MonoBehaviour
     private SpriteRenderer sr;
 
     private bool isDead;
+    private bool playerUnlocked;
 
     [Header("Knockback info")]
     [SerializeField] private Vector2 knockbackDir;
     private bool isKnocked;
     private bool canBeKnocked = true;
 
-    [Header("Speed Info")]
+    [Header("Move Info")]
+    [SerializeField] private float moveSpeed;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float speedMultiplier;
     private float defaultSpeed;
@@ -26,14 +28,12 @@ public class Player : MonoBehaviour
     private float speedMilestone;
 
 
-    [Header("Move Info")]
-    [SerializeField] private float moveSpeed;
+    [Header("Jump Info")]
     [SerializeField] private float jumpForce;
     [SerializeField] private float doubleJumpForce; 
-
     private bool canDoubleJump;
 
-    private bool playerUnlocked;
+
     [Header("Slide Info")]
     [SerializeField] private float slideSpeed;
     [SerializeField] private float slideTime;
@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
             return;
 
         if (playerUnlocked)
-            Movement();
+            SetupMovement();
 
         if (isGrounded)
         {
@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
         SpeedController();
 
         CheckForLedge();
-        CheckForSlide();
+        CheckForSlideCancel();
         CheckInput();
     }
 
@@ -161,6 +161,8 @@ public class Player : MonoBehaviour
         sr.color = originalColor;
         canBeKnocked = true;
     }
+    
+    #region KnockBack
     private void Knockback()
     {
         if(!canBeKnocked)
@@ -172,6 +174,7 @@ public class Player : MonoBehaviour
     }
 
     private void CancelKnockback() => isKnocked = false;
+    #endregion
 
     #region SpeedControll
     private void SpeedReset()
@@ -235,13 +238,13 @@ public class Player : MonoBehaviour
     private void AllowLedgeGrab() => canGrabLedge = true;
     #endregion
 
-    private void CheckForSlide()
+    private void CheckForSlideCancel()
     {
         if(slideTimeCounter < 0 && !ceillingDetected)
             isSliding = false;
     }
 
-    private void Movement()
+    private void SetupMovement()
     {
         if (wallDetected)
         {
@@ -257,7 +260,7 @@ public class Player : MonoBehaviour
 
 
 
-
+    #region Inputs
     private void SlideButton()
     {
         if (rb.velocity.x!=0 && slideCooldownCounter <0)
@@ -296,7 +299,9 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
             SlideButton();
     }
+    #endregion
 
+    #region Animations
     private void AnimatorControllers()
     {
         anim.SetFloat("yVelocity", rb.velocity.y);
@@ -313,6 +318,7 @@ public class Player : MonoBehaviour
     }
 
     private void RollAnimFinished() => anim.SetBool("canRoll",false);
+    #endregion
 
     private void CheckCollision()
     {
