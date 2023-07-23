@@ -114,6 +114,16 @@ public class Player : MonoBehaviour
         CheckInput();
     }
 
+    public void Damage()
+    {
+        if (moveSpeed >= maxSpeed)
+            Knockback();
+        else
+        {
+            StartCoroutine(Die());        
+        }
+    }
+
     private IEnumerator Die()
     {
         isDead = true;
