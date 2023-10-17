@@ -3949,6 +3949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6013751b1acffd4db93c81fa007affd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorEntirePlatform: 0
+  platformColor: {r: 0.99763495, g: 1, b: 0.14509803, a: 1}
   coins: 0
 --- !u!4 &441528711
 Transform:
@@ -10548,7 +10550,7 @@ MonoBehaviour:
   - {fileID: 8246219019685075418, guid: 8d962556d22b1564e8e3d64aaefc1a02, type: 3}
   nextPartPosition: {x: 0, y: 20, z: 0}
   distanceToSpawn: 50
-  distanceToDelete: 50
+  distanceToDelete: 200
   player: {fileID: 1839624272}
 --- !u!4 &978476111
 Transform:

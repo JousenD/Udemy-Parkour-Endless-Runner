@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     
+    public bool colorEntirePlatform;
+    public Color platformColor;
     public int coins;
 
     // Start is called before the first frame update
