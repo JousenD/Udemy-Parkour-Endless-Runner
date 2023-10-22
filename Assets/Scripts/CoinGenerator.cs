@@ -6,14 +6,21 @@ public class CoinGenerator : MonoBehaviour
 {
     private int amountOfCoins;
     [SerializeField] private GameObject coinPrefab;
-
     [SerializeField] private int minCoins;
     [SerializeField] private int maxCoins;
+
+    [SerializeField] private SpriteRenderer[] coinImg;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < coinImg.Length; i++)
+        {
+            coinImg[i].sprite = null;           
+        }
+
         amountOfCoins = Random.Range(minCoins,maxCoins);
         int additionalOffset = amountOfCoins / 2;
 
