@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer sr;
 
     private bool isDead;
-    private bool playerUnlocked;
+    [HideInInspector] public bool playerUnlocked;
 
     [Header("Knockback info")]
     [SerializeField] private Vector2 knockbackDir;
@@ -302,8 +302,8 @@ public class Player : MonoBehaviour
 
     private void CheckInput()
     {
-        if (Input.GetButtonDown("Fire2"))
-            playerUnlocked = true;
+        // if (Input.GetButtonDown("Fire2"))
+        //     playerUnlocked = true;
 
         if (Input.GetButtonDown("Jump"))
             JumpButton();

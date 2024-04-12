@@ -12,4 +12,6 @@ public class UI_Main : MonoBehaviour
         }
         uiMenu.SetActive(true);
     }
+
+    public void StartGame() => GameManager.instance.UnlockPlayer();
 }

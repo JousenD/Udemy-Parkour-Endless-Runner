@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     
+    public Player player;
     public bool colorEntirePlatform;
     public Color platformColor;
     public int coins;
@@ -17,5 +18,6 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
+    public void UnlockPlayer() => player.playerUnlocked = true;
     public void RestartLevel() => SceneManager.LoadScene(0);
 }
