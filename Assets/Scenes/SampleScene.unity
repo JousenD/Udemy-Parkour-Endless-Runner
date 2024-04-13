@@ -12115,6 +12115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029a9eea24c93cf409ebef983ccd30ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePaused: 0
+  mainMenu: {fileID: 2131223240}
 --- !u!1 &912081961
 GameObject:
   m_ObjectHideFlags: 0
@@ -16541,7 +16543,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 910165832}
         m_TargetAssemblyTypeName: UI_Main, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: StartGameButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18660,7 +18662,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1438624782}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 910165832}
+        m_TargetAssemblyTypeName: UI_Main, Assembly-CSharp
+        m_MethodName: PauseGameButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 910165832}
+        m_TargetAssemblyTypeName: UI_Main, Assembly-CSharp
+        m_MethodName: SwitchMenuTo
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1615721875}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1438624782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21279,7 +21305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -21309,7 +21335,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1591692415}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 910165832}
+        m_TargetAssemblyTypeName: UI_Main, Assembly-CSharp
+        m_MethodName: PauseGameButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 910165832}
+        m_TargetAssemblyTypeName: UI_Main, Assembly-CSharp
+        m_MethodName: SwitchMenuTo
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 736332531}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1591692415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27683,7 +27733,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2083217960}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 910165832}
+        m_TargetAssemblyTypeName: UI_Main, Assembly-CSharp
+        m_MethodName: RestartGameButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 910165832}
+        m_TargetAssemblyTypeName: UI_Main, Assembly-CSharp
+        m_MethodName: SwitchMenuTo
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2131223240}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2083217960
 MonoBehaviour:
   m_ObjectHideFlags: 0

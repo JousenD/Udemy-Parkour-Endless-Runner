@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class UI_Main : MonoBehaviour
 {
+    public bool gamePaused;
+    
+    [SerializeField] private GameObject mainMenu;
+
+    private void Start()
+    {
+        SwitchMenuTo(mainMenu);
+        Time.timeScale = 1;
+    }
     public void SwitchMenuTo(GameObject uiMenu)
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -13,5 +22,21 @@ public class UI_Main : MonoBehaviour
         uiMenu.SetActive(true);
     }
 
-    public void StartGame() => GameManager.instance.UnlockPlayer();
+    public void StartGameButton() => GameManager.instance.UnlockPlayer();
+
+    public void PauseGameButton()
+    {
+        if (gamePaused)
+        {
+            Time.timeScale = 1;
+            gamePaused = false;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            gamePaused = true;
+        }
+    }
+
+    public void RestartGameButton() => GameManager.instance.RestartLevel();
 }
