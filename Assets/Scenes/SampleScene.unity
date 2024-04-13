@@ -24741,9 +24741,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1839624274}
   playerUnlocked: 0
+  extraLife: 0
   knockbackDir: {x: -12, y: 7}
   moveSpeed: 12
-  maxSpeed: 20
+  maxSpeed: 15
   speedMultiplier: 1.15
   milestoneIncreaser: 50
   jumpForce: 18
