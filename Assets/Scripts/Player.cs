@@ -341,7 +341,7 @@ public class Player : MonoBehaviour
         ceillingDetected = Physics2D.Raycast(transform.position, Vector2.up, ceillingCheckDistance, whatIsGround);
         wallDetected = Physics2D.BoxCast(wallCheck.position, wallCheckSize,0,Vector2.zero,0,whatIsGround);
 
-        Debug.Log(ledgeDetected);
+        //Debug.Log(ledgeDetected);
     }
     private void OnDrawGizmos() {
         Gizmos.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y - groundCheckDistance));
