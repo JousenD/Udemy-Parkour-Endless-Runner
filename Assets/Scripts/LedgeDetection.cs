@@ -8,7 +8,8 @@ public class LedgeDetection : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Player player;
 
-    private bool canDetect;
+
+    private bool canDetect=true;
     // private BoxCollider2D boxCd => GetComponent<BoxCollider2D>();
 
     private void Update() 

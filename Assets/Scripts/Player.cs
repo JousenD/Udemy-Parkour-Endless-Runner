@@ -259,6 +259,15 @@ public class Player : MonoBehaviour
             isSliding = false;
     }
 
+    /* private void SetCanGrabLedgeFalse()
+    {
+        canGrabLedge = false;
+    }
+
+    private void SetCanGrabLedgeTrue()
+    {
+        canGrabLedge = true;
+    } */
     private void SetupMovement()
     {
         if (wallDetected)
