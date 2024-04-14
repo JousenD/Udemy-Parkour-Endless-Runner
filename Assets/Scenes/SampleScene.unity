@@ -4565,7 +4565,7 @@ MonoBehaviour:
   player: {fileID: 1839624276}
   colorEntirePlatform: 0
   platformColor: {r: 0.99763495, g: 1, b: 0.14509803, a: 1}
-  playercolor: {r: 1, g: 1, b: 1, a: 1}
+  playerColor: {r: 1, g: 1, b: 1, a: 1}
   coins: 0
   distance: 0
 --- !u!4 &441528711
@@ -4979,7 +4979,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 50
   m_Viewport: {fileID: 799474599}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 604951882}
@@ -27497,7 +27497,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.09663677, y: -0.2621858}
+  m_Offset: {x: 0.14451742, y: -0.2621858}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -27508,7 +27508,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2282782, y: 0.08504248}
+  m_Size: {x: 0.7459698, y: 0.08504248}
   m_EdgeRadius: 0
 --- !u!50 &2085761337
 Rigidbody2D:
@@ -29130,6 +29130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d597dc003596c124992f7fe7f3f02839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinsText: {fileID: 1828887963}
+  notifyText: {fileID: 1872169582032676270}
   platformColorButton: {fileID: 3569807239785032159, guid: c746e0cb8c46013499da7540f7fff138, type: 3}
   platformColorParent: {fileID: 1715144484}
   platformDisplay: {fileID: 1482518913}
@@ -29154,6 +29156,30 @@ MonoBehaviour:
     price: 50
   - color: {r: 0.051886797, g: 0.8354422, b: 1, a: 1}
     price: 50
+  playerColorButton: {fileID: 8408336806785324018, guid: 551ea80c3e3f4db46bcb81d4d3e1061a, type: 3}
+  playerColorParent: {fileID: 1872169581234016209}
+  playerDisplay: {fileID: 1755574601}
+  playerColors:
+  - color: {r: 1, g: 0, b: 0, a: 1}
+    price: 100
+  - color: {r: 0.2811944, g: 0.8396226, b: 0.28967977, a: 1}
+    price: 100
+  - color: {r: 0.15970986, g: 0.8812529, b: 0.9150943, a: 1}
+    price: 100
+  - color: {r: 0.16565657, g: 0, b: 1, a: 1}
+    price: 100
+  - color: {r: 1, g: 0.16509432, b: 0.8624357, a: 1}
+    price: 100
+  - color: {r: 0.9622642, g: 0.78192526, b: 0, a: 0}
+    price: 100
+  - color: {r: 0.13178192, g: 0.23584908, b: 0.11458706, a: 1}
+    price: 100
+  - color: {r: 0, g: 0, b: 0, a: 0}
+    price: 100
+  - color: {r: 0.38047346, g: 0.4716981, b: 0.45875064, a: 0}
+    price: 100
+  - color: {r: 0.46226418, g: 0.17661981, b: 0.29495832, a: 0}
+    price: 100
 --- !u!1 &1872169581177258113
 GameObject:
   m_ObjectHideFlags: 0
@@ -29385,7 +29411,7 @@ GameObject:
   - component: {fileID: 1872169582032676264}
   - component: {fileID: 1872169582032676270}
   m_Layer: 5
-  m_Name: InfoText
+  m_Name: Notify Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29912,7 +29938,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 50
   m_Viewport: {fileID: 1872169582774291107}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1872169582494398891}

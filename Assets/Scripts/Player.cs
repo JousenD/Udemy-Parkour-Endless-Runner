@@ -246,12 +246,19 @@ public class Player : MonoBehaviour
         canClimb = false;
         rb.gravityScale = 5;
         transform.position = climbOverPosition;
-        Invoke("AllowLedgeGrab", 0.1f);
+        canGrabLedge = false;
+        Invoke("AllowLedgeGrab", 1f);
         
     }
 
     private void AllowLedgeGrab() => canGrabLedge = true;
     #endregion
+
+    private void TemporaryDeactivateClimb()
+    {
+        canGrabLedge = false;
+        Invoke("AllowLedgeGrab", 1f);
+    }
 
     private void CheckForSlideCancel()
     {

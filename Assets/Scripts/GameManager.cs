@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public bool colorEntirePlatform;
     [Header("Color Info")]
     public Color platformColor;
-    public Color playercolor = Color.white;
+    public Color playerColor = Color.white;
     
     
     public int coins;
