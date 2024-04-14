@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class UI_Main : MonoBehaviour
     public bool gamePaused;
     
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject endGame;
+    [Space]
 
     [SerializeField] private TextMeshProUGUI lastScoreText;
     [SerializeField] private TextMeshProUGUI highScoreText;
@@ -48,4 +51,9 @@ public class UI_Main : MonoBehaviour
     }
 
     public void RestartGameButton() => GameManager.instance.RestartLevel();
+
+    public void OpenEndGameUI()
+    {
+        SwitchMenuTo(endGame);
+    }
 }

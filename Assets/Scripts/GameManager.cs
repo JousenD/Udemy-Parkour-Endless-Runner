@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     
+    public UI_Main ui;
     public Player player;
     public bool colorEntirePlatform;
     [Header("Color Info")]
@@ -17,10 +18,12 @@ public class GameManager : MonoBehaviour
     
     public int coins;
     public float distance;
+    public float score;
     // Start is called before the first frame update
     private void Awake() 
     {
         instance = this;
+        Time.timeScale = 1;
         //LoadColor();
     }
 
@@ -62,11 +65,17 @@ public class GameManager : MonoBehaviour
         int savedCoins = PlayerPrefs.GetInt("Coins");
         PlayerPrefs.SetInt("Coins", savedCoins + coins);
 
-        float score = distance * coins;
+        score = distance * coins;
 
         PlayerPrefs.SetFloat("LastScore", score);
 
         if(PlayerPrefs.GetFloat("HighScore") < score)
             PlayerPrefs.SetFloat("HighScore", score);
+    }
+
+    public void GameEnded()
+    {
+        SaveInfo();
+        ui.OpenEndGameUI();
     }
 }
