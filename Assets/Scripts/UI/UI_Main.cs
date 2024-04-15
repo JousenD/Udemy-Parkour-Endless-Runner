@@ -31,6 +31,7 @@ public class UI_Main : MonoBehaviour
         }
         uiMenu.SetActive(true);
 
+        AudioManager.instance.PlaySFX(4);
         coinsText.text = PlayerPrefs.GetInt("Coins").ToString("#,#");
     }
 

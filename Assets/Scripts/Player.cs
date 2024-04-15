@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -129,6 +129,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator Die()
     {
+        AudioManager.instance.PlaySFX(3);
         isDead = true;
         canBeKnocked = false;
         rb.velocity = knockbackDir;
@@ -313,10 +314,12 @@ public class Player : MonoBehaviour
         {
 
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            AudioManager.instance.PlaySFX(Random.Range(1, 2));
         }
         else if (canDoubleJump)
         {
             canDoubleJump = false;
+            AudioManager.instance.PlaySFX(Random.Range(1, 2));
             rb.velocity = new Vector2(rb.velocity.x, doubleJumpForce);
         }
     }
