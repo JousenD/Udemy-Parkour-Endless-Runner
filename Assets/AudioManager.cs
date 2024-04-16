@@ -41,10 +41,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBGM(int bgmToPlay)
     {
-        for (int i = 0; i < bgm.Length; i++)
-        {
-            bgm[i].Stop();
-        }
+        StopBGM();
         bgm[bgmToPlay].Play();
     }
 

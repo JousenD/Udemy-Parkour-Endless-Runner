@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class UI_Main : MonoBehaviour
 {
     public bool gamePaused;
+    private bool gameMuted;
     
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject endGame;
@@ -17,8 +15,10 @@ public class UI_Main : MonoBehaviour
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI coinsText;
 
-    [Header("Volume Sliders")]
+    [Header("Volume Info")]
     [SerializeField] private UI_VolumeSlider[] slider;
+    [SerializeField] private Image muteIcon;
+    [SerializeField] private Image inGameMuteIcon;
     private void Start()
     {
         for (int i = 0; i < slider.Length; i++)
@@ -43,7 +43,29 @@ public class UI_Main : MonoBehaviour
         coinsText.text = PlayerPrefs.GetInt("Coins").ToString("#,#");
     }
 
-    public void StartGameButton() => GameManager.instance.UnlockPlayer();
+    public void MuteButton()
+    {
+        gameMuted = !gameMuted; //Works like a switcher
+
+        if (gameMuted)
+        {
+            muteIcon.color = new Color(1,1,1, 0.5f);
+            AudioListener.volume = 0;
+        }
+        else
+        {
+            muteIcon.color = Color.white;
+            AudioListener.volume = 1;
+        }
+    }
+
+    public void StartGameButton()
+    {
+        muteIcon = inGameMuteIcon;
+        if(gameMuted)
+            muteIcon.color = new Color(1,1,1, 0.5f);
+        GameManager.instance.UnlockPlayer();   
+    } 
 
     public void PauseGameButton()
     {
