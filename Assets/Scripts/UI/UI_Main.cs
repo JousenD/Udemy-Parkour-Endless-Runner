@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UI_Main : MonoBehaviour
 {
@@ -15,8 +16,15 @@ public class UI_Main : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lastScoreText;
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI coinsText;
+
+    [Header("Volume Sliders")]
+    [SerializeField] private UI_VolumeSlider[] slider;
     private void Start()
     {
+        for (int i = 0; i < slider.Length; i++)
+        {
+            slider[i].SetupSlider();
+        }
         SwitchMenuTo(mainMenu);
         Time.timeScale = 1;
 
