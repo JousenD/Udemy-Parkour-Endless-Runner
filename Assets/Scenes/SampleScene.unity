@@ -25798,9 +25798,10 @@ MonoBehaviour:
   playerUnlocked: 0
   extraLife: 0
   knockbackDir: {x: -12, y: 7}
+  speedToSurvive: 18
   moveSpeed: 12
-  maxSpeed: 16
-  speedMultiplier: 1.25
+  maxSpeed: 30
+  speedMultiplier: 1.15
   milestoneIncreaser: 50
   jumpForce: 18
   doubleJumpForce: 13
@@ -28841,7 +28842,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085761333}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.849, y: 1.19, z: 0}
+  m_LocalPosition: {x: 0.849, y: 1.096, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

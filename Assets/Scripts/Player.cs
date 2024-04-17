@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     private bool canBeKnocked = true;
 
     [Header("Move Info")]
+    [SerializeField] private float speedToSurvive = 18;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float speedMultiplier;
@@ -85,7 +87,7 @@ public class Player : MonoBehaviour
         CheckCollision();
         AnimatorControllers();
 
-        extraLife = moveSpeed >= maxSpeed;
+        extraLife = moveSpeed >= speedToSurvive;
 
         slideTimeCounter-=Time.deltaTime;
         slideCooldownCounter-=Time.deltaTime;
@@ -197,6 +199,9 @@ public class Player : MonoBehaviour
     #region SpeedControll
     private void SpeedReset()
     {
+        if(isSliding)
+            return;
+
         moveSpeed = defaultSpeed;
         milestoneIncreaser = defaultMilestoneIncrease;
     }
@@ -222,6 +227,8 @@ public class Player : MonoBehaviour
     #region LedgeRegion
     private void CheckForLedge()
     {
+        if(isSliding)
+            return;
         if(ledgeDetected && canGrabLedge)
         {
             canGrabLedge = false;
