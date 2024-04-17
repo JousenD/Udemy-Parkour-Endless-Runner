@@ -14,6 +14,9 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool playerUnlocked;
     [HideInInspector] public bool extraLife;
 
+    [Header("VFX")]
+    [SerializeField] private ParticleSystem dustFx;
+
     [Header("Knockback info")]
     [SerializeField] private Vector2 knockbackDir;
     private bool isKnocked;
@@ -30,6 +33,7 @@ public class Player : MonoBehaviour
     private float defaultMilestoneIncrease;
     private float speedMilestone;
 
+    private bool readyToLand;
 
     [Header("Jump Info")]
     [SerializeField] private float jumpForce;
@@ -87,10 +91,11 @@ public class Player : MonoBehaviour
         CheckCollision();
         AnimatorControllers();
 
-        extraLife = moveSpeed >= speedToSurvive;
 
-        slideTimeCounter-=Time.deltaTime;
-        slideCooldownCounter-=Time.deltaTime;
+        slideTimeCounter -= Time.deltaTime;
+        slideCooldownCounter -= Time.deltaTime;
+
+        extraLife = moveSpeed >= speedToSurvive;
 
         if (Input.GetKeyDown(KeyCode.K))
             Knockback();
@@ -113,10 +118,23 @@ public class Player : MonoBehaviour
         }
 
         SpeedController();
+        CheckForLanding();
 
         CheckForLedge();
         CheckForSlideCancel();
         CheckInput();
+    }
+
+    private void CheckForLanding()
+    {
+        if (rb.velocity.y < -5 && !isGrounded)
+            readyToLand = true;
+
+        if (readyToLand && isGrounded)
+        {
+            dustFx.Play();
+            readyToLand = false;
+        }
     }
 
     public void Damage()
@@ -304,8 +322,12 @@ public class Player : MonoBehaviour
     #region Inputs
     public void SlideButton()
     {
+        if (isDead)
+            return;
+
         if (rb.velocity.x!=0 && slideCooldownCounter <0)
         {
+            dustFx.Play();
             isSliding = true;
             slideTimeCounter = slideTime;
             slideCooldownCounter = slideCooldown;
@@ -314,21 +336,25 @@ public class Player : MonoBehaviour
 
     public void JumpButton()
     {
-        if(isSliding)
+        if(isSliding || isDead)
             return;
 
         if (isGrounded)
         {
-
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            AudioManager.instance.PlaySFX(Random.Range(1, 2));
+            Jump(jumpForce);
         }
         else if (canDoubleJump)
         {
             canDoubleJump = false;
-            AudioManager.instance.PlaySFX(Random.Range(1, 2));
-            rb.velocity = new Vector2(rb.velocity.x, doubleJumpForce);
+            Jump(doubleJumpForce); 
         }
+    }
+
+    private void Jump(float force)
+    {
+        dustFx.Play();
+        AudioManager.instance.PlaySFX(Random.Range(1,2));
+        rb.velocity = new Vector2(rb.velocity.x, force);
     }
 
     private void CheckInput()
