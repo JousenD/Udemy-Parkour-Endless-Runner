@@ -14,7 +14,7 @@ public class UI_Endgame : MonoBehaviour
     {
         GameManager manager = GameManager.instance;
 
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
 
         if (manager.distance <= 0)
             return;
