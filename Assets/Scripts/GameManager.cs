@@ -11,7 +11,11 @@ public class GameManager : MonoBehaviour
     public UI_Main ui;
     public Player player;
     public bool colorEntirePlatform;
-    [Header("Color Info")]
+
+    [Header("Skybox Materials")]
+    [SerializeField] private Material[] skyboxMat;
+
+    [Header("Purchased Color")]
     public Color platformColor;
     public Color playerColor = Color.white;
     
@@ -24,6 +28,8 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         Time.timeScale = 1;
+        
+        SetupSkyBox(PlayerPrefs.GetInt("SkyBoxSetting"));
         //LoadColor();
     }
 
@@ -32,6 +38,16 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("ColorR", r);
         PlayerPrefs.SetFloat("ColorG", g);
         PlayerPrefs.SetFloat("ColorB", b);
+    }
+
+    public void SetupSkyBox(int i)
+    {
+        if( i<= 1)
+            RenderSettings.skybox = skyboxMat[i];
+        else
+            RenderSettings.skybox = skyboxMat[Random.Range(0,skyboxMat.Length)];
+
+        PlayerPrefs.SetInt("SkyBoxSetting", i);
     }
     private void LoadColor() 
     {
